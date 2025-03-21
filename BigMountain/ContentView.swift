@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        EnvironmentTwoWayBinding()
-            .environment(AddressOO())
+        OnChange_PreviousValue()
     }
 }
 
