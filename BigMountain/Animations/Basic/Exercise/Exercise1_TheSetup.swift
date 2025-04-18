@@ -36,7 +36,8 @@ struct Exercise1_TheSetup: View {
                 }
                 .offset(x: 18)
             }
-            .foregroundStyle(.red)
+            .rotationEffect(.degrees(change ? 0 : -90))
+            .foregroundStyle(change ? .red : .orange)
             .opacity(change ? 1 : 0)
             .animation(.default, value: change)
             
