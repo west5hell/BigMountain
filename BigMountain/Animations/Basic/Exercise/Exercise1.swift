@@ -1,5 +1,5 @@
 //
-//  Exercise1_TheSetup.swift
+//  Exercise1.swift
 //  BigMountain
 //
 //  Created by Pongt Chia on 18/4/25.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct Exercise1_TheSetup: View {
+struct Exercise1: View {
     @State private var change = false
+    var offsetValue: CGFloat = 200
     
     var body: some View {
         VStack(spacing: 20) {
@@ -24,15 +25,19 @@ struct Exercise1_TheSetup: View {
                 HStack(alignment: .bottom, spacing: 1) {
                     Rectangle()
                         .frame(width: 70, height: 35)
+                        .offset(x: change ? 0 : -offsetValue)
                     Rectangle()
                         .frame(width: 35, height: 70)
+                        .offset(y: change ? 0 : -offsetValue)
                 }
                 .offset(x: -18)
                 HStack(alignment: .top, spacing: 1) {
                     Rectangle()
                         .frame(width: 36, height: 72)
+                        .offset(y: change ? 0 : offsetValue)
                     Rectangle()
                         .frame(width: 72, height: 36)
+                        .offset(x: change ? 0 : offsetValue)
                 }
                 .offset(x: 18)
             }
@@ -53,5 +58,5 @@ struct Exercise1_TheSetup: View {
 }
 
 #Preview {
-    Exercise1_TheSetup()
+    Exercise1()
 }
