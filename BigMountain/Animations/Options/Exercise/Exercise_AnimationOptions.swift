@@ -38,12 +38,21 @@ struct Exercise_AnimationOptions: View {
                         .animation(.easeIn(duration: 0.5).delay(0.5), value: showLogin)
                     TextField("Username", text: $userName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .opacity(showLogin ? 1 : 0)
+                        .offset(x: showLogin ? 0 : -200)
+                        .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
                     SecureField("Password", text: $password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .opacity(showLogin ? 1 : 0)
+                        .offset(x: showLogin ? 0 : -200)
+                        .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
                     Button("Login") {
                         
                     }
                     .foregroundStyle(Color("Accent"))
+                    .opacity(showLogin ? 1 : 0)
+                    .offset(x: showLogin ? 0 : -200)
+                    .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
                 }
                 .padding(.horizontal)
                 .onAppear {
