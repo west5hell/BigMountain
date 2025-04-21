@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Exercise_AnimationOptions: View {
+    @State private var showLogin = false
     @State private var userName = ""
     @State private var password = ""
     
@@ -43,6 +44,9 @@ struct Exercise_AnimationOptions: View {
                     .foregroundStyle(Color("Accent"))
                 }
                 .padding(.horizontal)
+                .onAppear {
+                    showLogin = true
+                }
                 
                 Spacer()
                 Spacer()
