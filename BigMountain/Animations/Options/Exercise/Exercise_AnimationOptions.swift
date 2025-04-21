@@ -34,6 +34,8 @@ struct Exercise_AnimationOptions: View {
                         .font(.system(size: 70))
                         .padding()
                         .foregroundStyle(Color("Gold"))
+                        .scaleEffect(showLogin ? 1 : 4)
+                        .animation(.easeIn(duration: 0.5).delay(0.5), value: showLogin)
                     TextField("Username", text: $userName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     SecureField("Password", text: $password)
