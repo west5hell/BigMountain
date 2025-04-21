@@ -12,6 +12,10 @@ struct Exercise_AnimationOptions: View {
     @State private var userName = ""
     @State private var password = ""
     
+    let xOffset: CGFloat = -200
+    let duration: Double = 0.7
+    let delay = 0.5
+    
     var body: some View {
         ZStack {
             RadialGradient(
@@ -35,24 +39,24 @@ struct Exercise_AnimationOptions: View {
                         .padding()
                         .foregroundStyle(Color("Gold"))
                         .scaleEffect(showLogin ? 1 : 4)
-                        .animation(.easeIn(duration: 0.5).delay(0.5), value: showLogin)
+                        .animation(.easeIn(duration: duration/2).delay(delay), value: showLogin)
                     TextField("Username", text: $userName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .opacity(showLogin ? 1 : 0)
-                        .offset(x: showLogin ? 0 : -200)
-                        .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
+                        .offset(x: showLogin ? 0 : xOffset)
+                        .animation(.easeOut(duration: duration).delay(delay + 0.2), value: showLogin)
                     SecureField("Password", text: $password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .opacity(showLogin ? 1 : 0)
-                        .offset(x: showLogin ? 0 : -200)
-                        .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
+                        .offset(x: showLogin ? 0 : xOffset)
+                        .animation(.easeOut(duration: duration).delay(delay + 0.4), value: showLogin)
                     Button("Login") {
                         
                     }
                     .foregroundStyle(Color("Accent"))
                     .opacity(showLogin ? 1 : 0)
-                    .offset(x: showLogin ? 0 : -200)
-                    .animation(.easeOut(duration: 0.5).delay(0.5), value: showLogin)
+                    .offset(x: showLogin ? 0 : xOffset)
+                    .animation(.easeOut(duration: duration).delay(delay + 0.6), value: showLogin)
                 }
                 .padding(.horizontal)
                 .onAppear {
