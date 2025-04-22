@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct TransitionBaseView<Content: View>: View {
-    @ViewBuilder let content: Content
+    var title = "Transitions"
+    var subtitle = ""
+    var desc = ""
     
-    let title = "Transitions"
-    let subtitle = ""
-    let desc = ""
+    @ViewBuilder let content: Content
     
     var body: some View {
         ZStack {
