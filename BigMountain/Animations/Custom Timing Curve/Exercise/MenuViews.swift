@@ -16,9 +16,11 @@ struct MenuViews: View {
         VStack(spacing: 20) {
             HStack(spacing: 20) {
                 VStack(spacing: 25) {
+                    Spacer()
                     Text("Stats")
                         .fontWeight(.thin)
                         .padding()
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -27,6 +29,7 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -35,6 +38,7 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -43,6 +47,8 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+//                    .padding(.bottom, 40)
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: 500)
                 .background(
@@ -56,9 +62,11 @@ struct MenuViews: View {
                 .animation(showMenus ? .timingCurve(0, -2, 1, 0, duration: 1) : .timingCurve(0, 1, 0, 1.5, duration: 1), value: showMenus)
                 
                 VStack(spacing: 25) {
+                    Spacer()
                     Text("Exercise")
                         .fontWeight(.thin)
                         .padding()
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -67,6 +75,7 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -75,6 +84,7 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+                    Spacer()
                     Button {
                         
                     } label: {
@@ -83,6 +93,7 @@ struct MenuViews: View {
                             .foregroundStyle(.white)
                             .buttonStyle(ButtonStyleThinOutline())
                     }
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: 500)
                 .background(
