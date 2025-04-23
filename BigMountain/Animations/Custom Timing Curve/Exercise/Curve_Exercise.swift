@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct Curve_Exercise: View {
+    private var backgroudGradient = LinearGradient(
+        gradient: Gradient(colors: [Color("Background4"), Color("Secondary4")]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            backgroudGradient.ignoresSafeArea()
+            
+            VStack {
+                Text("Workout Pro")
+                    .font(.largeTitle)
+                    .fontWeight(.thin)
+                    .padding(.top, 40)
+                Spacer()
+            }
+        }
+        .font(.title)
+        .foregroundStyle(Color("Foreground4"))
     }
 }
 
