@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeBackView: View {
-    @Binding private var showMenus: Bool
+    @Binding var showMenus: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -45,4 +45,8 @@ struct WelcomeBackView: View {
         .blur(radius: showMenus ? 5 : 0)
         .animation(showMenus ? .easeInOut(duration: 1) : .timingCurve(0.5, 0, 0.5, 1.5, duration: 1), value: showMenus)
     }
+}
+
+#Preview {
+    WelcomeBackView(showMenus: .constant(false))
 }
