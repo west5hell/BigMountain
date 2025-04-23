@@ -85,6 +85,15 @@ struct Exercise_Transition: View {
                         Image(systemName: "chevron.left.circle.fill")
                             .rotationEffect(.degrees(step1 ? 180 : 0))
                     }
+                    
+                    if step1 == false {
+                        Button {
+                            step1.toggle()
+                        } label: {
+                            Image(systemName: "chevron.right.circle.fill")
+                        }
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
+                    }
                 }
                 .font(.system(size: 50))
                 .animation(.easeOut(duration: 1), value: step1)
