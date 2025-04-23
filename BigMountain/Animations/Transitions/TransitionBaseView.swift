@@ -27,3 +27,27 @@ struct TransitionBaseView<Content: View>: View {
         }
     }
 }
+
+extension AnyTransition {
+    static var zoomInAndOut: AnyTransition {
+        .asymmetric(
+            insertion: 
+                    .scale(scale: 0.1, anchor: .topTrailing)
+                    .combined(with: .offset(y: 120)),
+            removal: 
+                    .scale(scale: 0.2)
+                    .combined(with: .opacity)
+        )
+    }
+    
+    static func zoomIn(from anchor: UnitPoint) -> AnyTransition {
+        .asymmetric(
+            insertion:
+                    .scale(scale: 0.1, anchor: anchor)
+                    .combined(with: .offset(y: 120)),
+            removal:
+                    .scale(scale: 0.2)
+                    .combined(with: .opacity)
+        )
+    }
+}
