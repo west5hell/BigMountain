@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Curve_Exercise: View {
     @State private var showMenus = false
+    
     private var backgroudGradient = LinearGradient(
         gradient: Gradient(colors: [Color("Background4"), Color("Secondary4")]),
         startPoint: .top,
@@ -20,6 +21,8 @@ struct Curve_Exercise: View {
             backgroudGradient.ignoresSafeArea()
             
             TitleView()
+            
+            MenuViews(showMenus: $showMenus)
             
             WelcomeBackView(showMenus: $showMenus)
         }
