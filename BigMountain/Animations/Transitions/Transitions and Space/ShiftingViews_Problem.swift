@@ -27,15 +27,21 @@ struct ShiftingViews_Problem: View {
                 Button("Change") {
                     change.toggle()
                 }
-                Spacer(minLength: 0)
-                if change {
-                    Image("Phone")
-                        .transition(.slide)
-                }
-                
-                Spacer(minLength: 0)
                 
                 DescView("Notice what happens when the view is inserted here.")
+            }
+            
+            if change {
+                Image("Phone")
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color("LightShade2"))
+                            .shadow(radius: 20)
+                    )
+                    .offset(y: -65)
+                    .zIndex(1)
+                    .transition(.slide.combined(with: .opacity))
             }
         }
         .animation(.default, value: change)
