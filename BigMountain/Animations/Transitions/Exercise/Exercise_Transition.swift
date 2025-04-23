@@ -50,11 +50,37 @@ struct Exercise_Transition: View {
             }
             .animation(.easeOut(duration: 1.1), value: step1)
             
+            //  Step 2
+            VStack(spacing: 5) {
+                if step1 == false {
+                    Text("Where do you want to go?")
+                        .bold()
+                        .padding(.horizontal, 50)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color("Secondary3"))
+                        .transition(.move(edge: .top))
+                }
+                
+                if step1 == false {
+                    TripDetailsView()
+                        .transition(.move(edge: .trailing))
+                }
+                
+                if step1 == false {
+                    Image("airplane")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 300)
+                        .padding(.bottom, 100)
+                        .transition(.move(edge: .bottom))
+                }
+            }
+            
             VStack {
                 Spacer()
                 HStack(spacing: 40) {
                     Button {
-                        
+                        step1.toggle()
                     } label: {
                         Image(systemName: "chevron.left.circle.fill")
                             .rotationEffect(.degrees(step1 ? 180 : 0))
