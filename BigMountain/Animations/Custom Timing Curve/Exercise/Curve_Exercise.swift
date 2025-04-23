@@ -22,9 +22,12 @@ struct Curve_Exercise: View {
             
             TitleView()
             
-            MenuViews(showMenus: $showMenus)
+            Group {
+                MenuViews(showMenus: $showMenus)
+                WelcomeBackView(showMenus: $showMenus)
+            }
+            .offset(y: 50)
             
-            WelcomeBackView(showMenus: $showMenus)
         }
         .font(.title)
         .foregroundStyle(Color("Foreground4"))
