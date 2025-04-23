@@ -27,14 +27,13 @@ struct ShiftingViews_Problem: View {
                 Button("Change") {
                     change.toggle()
                 }
-                
+                Spacer(minLength: 0)
                 if change {
                     Image("Phone")
                         .transition(.slide)
-                } else {
-                    Image("Phone")
-                        .hidden()
                 }
+                
+                Spacer(minLength: 0)
                 
                 DescView("Notice what happens when the view is inserted here.")
             }
