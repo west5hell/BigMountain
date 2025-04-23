@@ -31,6 +31,9 @@ struct ShiftingViews_Problem: View {
                 if change {
                     Image("Phone")
                         .transition(.slide)
+                } else {
+                    Image("Phone")
+                        .hidden()
                 }
                 
                 DescView("Notice what happens when the view is inserted here.")
