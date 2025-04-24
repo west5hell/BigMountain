@@ -16,8 +16,8 @@ struct MGE_WhatCouldGoWrong_FrameSolution: View {
         VStack(spacing: 20) {
             HeaderView(
                 "MatchedGeometryEffect",
-                subtitle: "Frame Problem",
-                desc: "The order of modifiers matters. View 1 is now animating in an unexpected way. Can you spot the problem here?",
+                subtitle: "Frame Solution",
+                desc: "The destination frame should be BELOW the matched geometry effect.",
                 back: .green,
                 textColor: .black
             )
