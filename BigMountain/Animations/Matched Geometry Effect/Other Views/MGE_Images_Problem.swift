@@ -15,8 +15,8 @@ struct MGE_Images_Problem: View {
         VStack(spacing: 20) {
             HeaderView(
                 "MatchedGeometryEffect",
-                subtitle: "Images - Problem",
-                desc: "Adding a border to the image doesn't work like you might expect. What is the problem here?",
+                subtitle: "Images - Solution",
+                desc: "Move the border ABOVE the matchedGeometryEffect so it is included when the view is resized/repositioned.",
                 back: .green,
                 textColor: .black
             )
@@ -27,8 +27,8 @@ struct MGE_Images_Problem: View {
                 Image("JOJO-Liu")
                     .resizable()
                     .scaledToFit()
+                    .border(.green, width: 2)
                     .matchedGeometryEffect(id: "customerProfile", in: namespace)
-                    .border(.green, width: 2) 
                     .onTapGesture {
                         zoom.toggle()
                     }
@@ -36,8 +36,8 @@ struct MGE_Images_Problem: View {
                 Image("JOJO-Liu")
                     .resizable()
                     .scaledToFit()
-                    .matchedGeometryEffect(id: "customerProfile", in: namespace)
                     .border(.green, width: 2)
+                    .matchedGeometryEffect(id: "customerProfile", in: namespace)
                     .frame(height: 50)
                     .onTapGesture {
                         zoom.toggle()
