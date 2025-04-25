@@ -17,7 +17,7 @@ struct MGE_TwoScreens_Namespace_Problem: View {
                 HeaderView(
                     "MatchedGeometryEffect",
                     subtitle: "Two Views - Namespaces",
-                    desc: "The two matched views have to share the same namespace. How do you do this with views in two different places?",
+                    desc: "You have to pass in a reference to the namespace so both views can use the same one.",
                     back: .green,
                     textColor: .black
                 )
@@ -39,7 +39,7 @@ struct MGE_TwoScreens_Namespace_Problem: View {
             }
             
             if showGreenScreen {
-                MGE_GreenScreen(showGreenScreen: $showGreenScreen)
+                MGE_GreenScreen(showGreenScreen: $showGreenScreen, namespace: namespace)
             }
         }
         .font(.title)
@@ -53,7 +53,7 @@ struct MGE_TwoScreens_Namespace_Problem: View {
 
 struct MGE_GreenScreen: View {
     @Binding var showGreenScreen: Bool
-    @Namespace var namespace
+    var namespace: Namespace.ID
     
     var body: some View {
         Color.green
