@@ -16,21 +16,7 @@ struct MGE_Exercise: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(parks) { park in
-                    ZStack(alignment: .bottom) {
-                        Image(park.imageName)
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                        
-                        Text(park.name)
-                            .font(.title)
-                            .fontWeight(.heavy)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background {
-                                Color(UIColor.systemBackground).opacity(0.4)
-                            }
-                    }
+                    ParksRowView(namespace: namespace, selectedPark: $selectedPark, park: park)
                 }
             }
         }
@@ -40,4 +26,32 @@ struct MGE_Exercise: View {
 
 #Preview {
     MGE_Exercise()
+}
+
+struct ParksRowView: View {
+    var namespace: Namespace.ID
+    @Binding var selectedPark: ExerciseItem?
+    var park: ExerciseItem
+    
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Image(park.imageName)
+                .resizable()
+                .scaledToFill()
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+            
+            Text(park.name)
+                .font(.title)
+                .fontWeight(.heavy)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background {
+                    Color(UIColor.systemBackground).opacity(0.4)
+                }
+        }
+        .padding(.horizontal, 12)
+        .onTapGesture {
+            selectedPark = park
+        }
+    }
 }
