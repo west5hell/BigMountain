@@ -48,6 +48,7 @@ struct ParksRowView: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                .matchedGeometryEffect(id: park.id, in: namespace)
             
             Text(park.name)
                 .font(.title)

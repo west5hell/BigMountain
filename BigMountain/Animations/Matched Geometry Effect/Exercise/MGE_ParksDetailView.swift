@@ -58,6 +58,7 @@ struct MGE_ParksDetailView: View {
                     Image(park.imageName)
                         .resizable()
                         .scaledToFill()
+                        .matchedGeometryEffect(id: park.id, in: namespace)
                     
                     Group {
                         HStack {
