@@ -25,6 +25,11 @@ struct MGE_Exercise: View {
             }
         }
         .ignoresSafeArea(edges: .top)
+        .overlay {
+            if let selectedPark {
+                MGE_ParksDetailView(namespace: namespace, selectedPark: $selectedPark, park: selectedPark)
+            }
+        }
     }
 }
 
