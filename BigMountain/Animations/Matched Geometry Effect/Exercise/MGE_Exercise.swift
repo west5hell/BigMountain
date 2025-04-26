@@ -16,10 +16,21 @@ struct MGE_Exercise: View {
         ScrollView {
             LazyVStack(spacing: 12) {
                 ForEach(parks) { park in
-                    Image(park.imageName)
-                        .resizable()
-                        .scaledToFill()
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                    ZStack(alignment: .bottom) {
+                        Image(park.imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                        
+                        Text(park.name)
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                Color(UIColor.systemBackground).opacity(0.4)
+                            }
+                    }
                 }
             }
         }
