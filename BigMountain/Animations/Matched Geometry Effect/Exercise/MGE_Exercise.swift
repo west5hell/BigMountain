@@ -44,22 +44,29 @@ struct ParksRowView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(park.imageName)
-                .resizable()
-                .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 30))
-                .matchedGeometryEffect(id: park.id, in: namespace)
-            
-            Text(park.name)
-                .font(.title)
-                .fontWeight(.heavy)
-                .matchedGeometryEffect(id: "\(park.id)name", in: namespace, properties: .position)
-                .zIndex(1)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background {
-                    Color(UIColor.systemBackground).opacity(0.4)
-                }
+            if park.id != selectedPark?.id {
+                Image(park.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .matchedGeometryEffect(id: park.id, in: namespace)
+                
+                Text(park.name)
+                    .font(.title)
+                    .fontWeight(.heavy)
+                    .matchedGeometryEffect(id: "\(park.id)name", in: namespace, properties: .position)
+                    .zIndex(1)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background {
+                        Color(UIColor.systemBackground).opacity(0.4)
+                    }
+            } else {
+                Image(park.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .hidden()
+            }
         }
         .padding(.horizontal, 12)
         .onTapGesture {
