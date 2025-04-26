@@ -70,7 +70,9 @@ struct ParksRowView: View {
         }
         .padding(.horizontal, 12)
         .onTapGesture {
-            selectedPark = park
+            withAnimation(.easeOut) {
+                selectedPark = park
+            }
         }
     }
 }
