@@ -15,7 +15,7 @@ class Data {
             Item(name: "Yen", systemName: "yensign.ring.dashed"),
             Item(name: "Bitcoin", systemName: "bitcoinsign.ring.dashed"),
             Item(name: "Sterling", systemName: "sterlingsign.ring.dashed"),
-            Item(name: "Chinese Yuan RenMinBi", systemName: "chineseyuanrenminbisign.ring.dashed"),
+            Item(name: "Chinese Yuan", systemName: "chineseyuanrenminbisign.ring.dashed"),
             Item(name: "Austral", systemName: "australsign.ring.dashed"),
             Item(name: "Cedi", systemName: "cedisign.ring.dashed"),
             Item(name: "Lira", systemName: "lirasign.ring.dashed"),
