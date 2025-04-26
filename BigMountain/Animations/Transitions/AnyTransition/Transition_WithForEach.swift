@@ -45,6 +45,8 @@ struct Transition_WithForEach: View {
 struct Item: Identifiable {
     let id = UUID()
     var name: String
+    
+    var systemName = ""
 }
 
 struct CardView: View {
