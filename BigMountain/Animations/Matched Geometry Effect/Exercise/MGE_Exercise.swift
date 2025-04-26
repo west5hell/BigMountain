@@ -52,6 +52,8 @@ struct ParksRowView: View {
             Text(park.name)
                 .font(.title)
                 .fontWeight(.heavy)
+                .matchedGeometryEffect(id: "\(park.id)name", in: namespace, properties: .position)
+                .zIndex(1)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background {

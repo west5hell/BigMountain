@@ -34,6 +34,7 @@ struct MGE_ParksDetailView: View {
                             .font(.largeTitle)
                             .fontWeight(.black)
                             .padding(.horizontal)
+                            .matchedGeometryEffect(id: "\(park.id)name", in: namespace, properties: .position)
                         
                         Spacer()
                         
@@ -51,6 +52,7 @@ struct MGE_ParksDetailView: View {
                         .offset(x: show ? 0 : 60)
                         .animation(.easeOut.delay(0.4), value: show)
                     }
+                    .zIndex(1)
                     .padding(.trailing)
                     
                     Image(park.imageName)
@@ -84,8 +86,10 @@ struct MGE_ParksDetailView: View {
                             .padding(.bottom)
                         
                         Button {
-                            selectedPark = nil
-                            show = false
+                            withAnimation(.easeOut) {
+                                selectedPark = nil
+                                show = false
+                            }
                         } label: {
                             Image(systemName: "xmark")
                                 .foregroundStyle(.white)
