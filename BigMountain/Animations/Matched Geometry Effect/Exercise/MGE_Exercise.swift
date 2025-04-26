@@ -14,9 +14,13 @@ struct MGE_Exercise: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 12) {
-                ForEach(parks) { park in
-                    ParksRowView(namespace: namespace, selectedPark: $selectedPark, park: park)
+            LazyVStack(spacing: 12, pinnedViews: .sectionHeaders) {
+                Section {
+                    ForEach(parks) { park in
+                        ParksRowView(namespace: namespace, selectedPark: $selectedPark, park: park)
+                    }
+                } header: {
+                    ParksSectionHeaderView()
                 }
             }
         }
@@ -53,5 +57,21 @@ struct ParksRowView: View {
         .onTapGesture {
             selectedPark = park
         }
+    }
+}
+
+struct ParksSectionHeaderView: View {
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Color(UIColor.systemBackground)
+                .opacity(0.8)
+            
+            Text("UTAH NATIONAL PARKS")
+                .font(.title)
+                .fontWeight(.black)
+                .padding()
+                .frame(maxWidth: .infinity)
+        }
+        .frame(height: 100)
     }
 }
