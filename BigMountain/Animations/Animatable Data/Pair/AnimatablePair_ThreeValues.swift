@@ -1,5 +1,5 @@
 //
-//  AnimatablePair_BlobExample.swift
+//  AnimatablePair_ThreeValues.swift
 //  BigMountain
 //
 //  Created by Pongt Chia on 27/4/25.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct AnimatablePair_BlobExample: View {
-    
+struct AnimatablePair_ThreeValues: View {
     @State private var xOffset: CGFloat = 0
     @State private var yOffset: CGFloat = 0
+    @State private var verticalInset: CGFloat = 0
     
     var body: some View {
         VStack(spacing: 20) {
@@ -24,30 +24,36 @@ struct AnimatablePair_BlobExample: View {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.2)) {
                     xOffset = xOffset == 60 ? 0 : 60
                     yOffset = yOffset == 90 ? 0 : 90
+                    verticalInset = verticalInset == 20 ? 0 : 20
                 }
-                
             }
             
-            BlobStruct(xOffset: xOffset, yOffset: yOffset)
-                .padding()
+            BlobShapeWithInset(
+                xOffset: xOffset,
+                yOffset: yOffset,
+                verticalInset: verticalInset
+            )
+            .padding()
         }
         .font(.title)
     }
 }
 
 #Preview {
-    AnimatablePair_BlobExample()
+    AnimatablePair_ThreeValues()
 }
 
-struct BlobStruct: Shape {
+struct BlobShapeWithInset: Shape {
     var xOffset: CGFloat = 0
     var yOffset: CGFloat = 0
+    var verticalInset: CGFloat = 0
     
-    var animatableData: AnimatablePair<CGFloat, CGFloat> {
-        get { AnimatablePair(xOffset, yOffset) }
+    var animatableData: AnimatablePair<AnimatablePair<CGFloat, CGFloat>, CGFloat> {
+        get { AnimatablePair(AnimatablePair(xOffset, yOffset), verticalInset) }
         set {
-            xOffset = newValue.first
-            yOffset = newValue.second
+            xOffset = newValue.first.first
+            yOffset = newValue.first.second
+            verticalInset = newValue.second
         }
     }
     nonisolated func path(in rect: CGRect) -> Path {
@@ -58,14 +64,14 @@ struct BlobStruct: Shape {
         
         path.addCurve(
             to: CGPoint(x: rect.width, y: rect.height/2),
-            control1: CGPoint(x: (rect.width * 0.85)+xOffset, y: 0), // a
+            control1: CGPoint(x: (rect.width * 0.85)+xOffset, y: 0+verticalInset), // a
             control2: CGPoint(x: rect.width-xOffset, y: (rect.height * 0.1)) // b
         )
         // Point 3
         path.addCurve(
-            to: CGPoint(x: rect.width / 2, y: rect.height),
+            to: CGPoint(x: rect.width / 2, y: rect.height-verticalInset),
             control1: CGPoint(x: rect.width+xOffset, y: (rect.height * 0.8)+yOffset), // c
-            control2: CGPoint(x: rect.width * 0.75, y: rect.height) // d
+            control2: CGPoint(x: rect.width * 0.75, y: rect.height-verticalInset) // d
         )
         // Point 4
         path.addCurve(
@@ -83,7 +89,7 @@ struct BlobStruct: Shape {
         path.addCurve(
             to: startPoint,
             control1: CGPoint(x: (rect.width * 0.4)-xOffset, y: rect.height * 0.16), // i
-            control2: CGPoint(x: (rect.width * 0.35)-xOffset, y: 0)  // j
+            control2: CGPoint(x: (rect.width * 0.35)-xOffset, y: 0+verticalInset)  // j
         )
         
         return path
