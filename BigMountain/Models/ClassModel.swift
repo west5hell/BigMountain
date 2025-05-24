@@ -37,4 +37,10 @@ extension ClassModel {
             return Image(uiImage: UIImage(systemName: "photo")!)
         }
     }
+    
+    var viewSortedStudents: [StudentModel] {
+        students.sorted {
+            $0.name < $1.name
+        }
+    }
 }
