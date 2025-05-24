@@ -36,4 +36,9 @@ extension StudentModel {
     var viewSortedClasse: [ClassModel] {
         classes.sorted { $0.subject < $1.subject }
     }
+    
+    var viewSortedClassSubjects: [String] {
+        let sorted = classes.sorted { $0.subject < $1.subject }
+        return sorted.map { $0.subject }
+    }
 }
