@@ -15,14 +15,13 @@ class StaticModelContextOO {
     
 //    @MainActor
     func fetch() {
-        planets = try! PlanetModel.modelContext
-            .fetch(
-                FetchDescriptor<PlanetModel>(
-                    sortBy: [SortDescriptor(
-                        \.position
-                    )]
-                )
+        planets = try! PlanetModel.modelContext.fetch(
+            FetchDescriptor<PlanetModel>(
+                sortBy: [SortDescriptor(
+                    \.position
+                )]
             )
+        )
     }
     
 //    @MainActor
