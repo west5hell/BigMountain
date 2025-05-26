@@ -11,6 +11,7 @@ import SwiftData
 struct PlanetsListView: View {
     @State private var oo: PlanetOO
     @State private var insert = false
+    @State private var selectedPlanet: PlanetModel?
     
     init(modelContext: ModelContext) {
         self.oo = PlanetOO(modelContext: modelContext)
@@ -21,11 +22,17 @@ struct PlanetsListView: View {
             List {
                 ForEach(oo.planets) { planet in
                     PlanetRowView(planet: planet)
+                        .onTapGesture {
+                            selectedPlanet = planet
+                        }
                 }
                 .onDelete(perform: oo.delete(indexSet:))
             }
             
             .navigationTitle("Planets")
+            .refreshable {
+                oo.fetch()
+            }
             .toolbar {
                 Button("", systemImage: "plus") {
                     insert = true
@@ -37,6 +44,10 @@ struct PlanetsListView: View {
         }
         .sheet(isPresented: $insert) {
             InsertPlanetView(oo: oo)
+                .presentationDetents([.height(200)])
+        }
+        .sheet(item: $selectedPlanet) { planet in
+            UpdatePlanetView(oo: oo, planet: planet)
                 .presentationDetents([.height(200)])
         }
     }
@@ -85,6 +96,31 @@ struct InsertPlanetView: View {
             
             Button("Save") {
                 oo.insertPlanet(name: name)
+                dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+struct UpdatePlanetView: View {
+    let oo: PlanetOO
+    @Bindable var planet: PlanetModel
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Update Planet")
+                .font(.largeTitle.weight(.bold))
+            
+            TextField("planet name", text: $planet.name)
+                .textFieldStyle(.roundedBorder)
+            
+            Button("Save") {
+                oo.save()
                 dismiss()
             }
             .buttonStyle(.borderedProminent)

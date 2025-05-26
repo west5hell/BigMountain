@@ -50,4 +50,12 @@ class PlanetOO {
         // 2. fetch
 //        fetch()
     }
+    
+    func save() {
+        do {
+            try modelContext.save()
+        } catch {
+            errorMessage = "Failed saving: \(error.localizedDescription)"
+        }
+    }
 }
