@@ -1,5 +1,5 @@
 //
-//  OO_Fetch.swift
+//  PlanetsListView.swift
 //  BigMountain
 //
 //  Created by Pongt Chia on 26/5/25.
@@ -8,11 +8,11 @@
 import SwiftUI
 import SwiftData
 
-struct OO_Fetch: View {
-    @State private var oo: OO_FetchOO
+struct PlanetsListView: View {
+    @State private var oo: PlanetOO
     
     init(modelContext: ModelContext) {
-        self.oo = OO_FetchOO(modelContext: modelContext)
+        self.oo = PlanetOO(modelContext: modelContext)
     }
     
     var body: some View {
@@ -29,7 +29,7 @@ struct OO_Fetch: View {
 }
 
 #Preview {
-    OO_Fetch(modelContext: PlanetModel.preview.mainContext)
+    PlanetsListView(modelContext: PlanetModel.preview.mainContext)
 }
 
 struct PlanetRowView: View {

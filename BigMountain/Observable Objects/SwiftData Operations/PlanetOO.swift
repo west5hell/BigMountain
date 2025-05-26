@@ -1,5 +1,5 @@
 //
-//  OO_FetchOO.swift
+//  PlanetOO.swift
 //  BigMountain
 //
 //  Created by Pongt Chia on 26/5/25.
@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @Observable
-class OO_FetchOO {
+class PlanetOO {
     let modelContext: ModelContext
     var planets: [PlanetModel] = []
     var errorMessage: String?
