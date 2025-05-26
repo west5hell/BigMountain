@@ -13,7 +13,8 @@ struct BigMountainApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PerformanceView()
+                .modelContainer(for: TreeModel.self)
         }
     }
 }
