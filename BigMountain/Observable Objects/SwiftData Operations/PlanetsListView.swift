@@ -10,6 +10,7 @@ import SwiftData
 
 struct PlanetsListView: View {
     @State private var oo: PlanetOO
+    @State private var insert = false
     
     init(modelContext: ModelContext) {
         self.oo = PlanetOO(modelContext: modelContext)
@@ -25,9 +26,18 @@ struct PlanetsListView: View {
             }
             
             .navigationTitle("Planets")
+            .toolbar {
+                Button("", systemImage: "plus") {
+                    insert = true
+                }
+            }
         }
         .task {
             oo.fetch()
+        }
+        .sheet(isPresented: $insert) {
+            InsertPlanetView(oo: oo)
+                .presentationDetents([.height(200)])
         }
     }
 }
@@ -57,5 +67,30 @@ struct PlanetRowView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+}
+
+struct InsertPlanetView: View {
+    let oo: PlanetOO
+    @Environment(\.dismiss) private var dismiss
+    @State private var name = ""
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("New Planet")
+                .font(.largeTitle.weight(.bold))
+            
+            TextField("enter planet name", text: $name)
+                .textFieldStyle(.roundedBorder)
+            
+            Button("Save") {
+                oo.insertPlanet(name: name)
+                dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            
+            Spacer()
+        }
+        .padding()
     }
 }

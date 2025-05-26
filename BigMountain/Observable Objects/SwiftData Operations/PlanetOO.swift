@@ -35,4 +35,19 @@ class PlanetOO {
         }
         fetch()
     }
+    
+    func insertPlanet(name: String) {
+        let planet = PlanetModel(
+            name: name,
+            position: planets.count + 1,
+            orbitalPeriod: 0
+        )
+        modelContext.insert(planet)
+        
+        // Update planets property either way:
+        // 1. append
+        planets.append(planet)
+        // 2. fetch
+//        fetch()
+    }
 }
