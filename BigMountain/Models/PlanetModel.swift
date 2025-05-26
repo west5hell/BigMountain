@@ -48,3 +48,14 @@ extension PlanetModel {
         return "Orbital Period: \(days) days"
     }
 }
+
+extension PlanetModel {
+    @MainActor
+    static var modelContext: ModelContext = {
+#if DEBUG
+        return PlanetModel.preview.mainContext
+#else
+        return try! ModelContainer(for: PlanetModel.self).mainContext
+#endif
+    }()
+}
