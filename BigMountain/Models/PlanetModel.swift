@@ -51,11 +51,11 @@ extension PlanetModel {
 
 extension PlanetModel {
     @MainActor
-    static var modelContext: ModelContext = {
+    static var modelContainer: ModelContainer {
 #if DEBUG
-        return PlanetModel.preview.mainContext
+        return PlanetModel.preview
 #else
-        return try! ModelContainer(for: PlanetModel.self).mainContext
+        return try! ModelContainer(for: PlanetModel.self)
 #endif
-    }()
+    }
 }

@@ -15,7 +15,7 @@ class StaticModelContextOO {
     
 //    @MainActor
     func fetch() {
-        planets = try! PlanetModel.modelContext.fetch(
+        planets = try! PlanetModel.modelContainer.mainContext.fetch(
             FetchDescriptor<PlanetModel>(
                 sortBy: [SortDescriptor(
                     \.position
@@ -27,7 +27,7 @@ class StaticModelContextOO {
 //    @MainActor
     func delete(indexSet: IndexSet) {
         for index in indexSet {
-            PlanetModel.modelContext.delete(planets[index])
+            PlanetModel.modelContainer.mainContext.delete(planets[index])
         }
         fetch()
     }
@@ -39,7 +39,7 @@ class StaticModelContextOO {
             position: planets.count + 1,
             orbitalPeriod: 0
         )
-        PlanetModel.modelContext.insert(planet)
+        PlanetModel.modelContainer.mainContext.insert(planet)
         fetch()
     }
 }
