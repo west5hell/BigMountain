@@ -17,9 +17,13 @@ struct PlanetsListView: View {
     
     var body: some View {
         NavigationStack {
-            List(oo.planets) { planet in
-                PlanetRowView(planet: planet)
+            List {
+                ForEach(oo.planets) { planet in
+                    PlanetRowView(planet: planet)
+                }
+                .onDelete(perform: oo.delete(indexSet:))
             }
+            
             .navigationTitle("Planets")
         }
         .task {

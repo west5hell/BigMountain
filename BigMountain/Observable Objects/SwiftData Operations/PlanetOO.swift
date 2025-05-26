@@ -28,4 +28,11 @@ class PlanetOO {
             errorMessage = "Failed getting planets: \(error.localizedDescription)"
         }
     }
+    
+    func delete(indexSet: IndexSet) {
+        for index in indexSet {
+            modelContext.delete(planets[index])
+        }
+        fetch()
+    }
 }
