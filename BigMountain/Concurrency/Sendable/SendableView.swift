@@ -8,16 +8,33 @@
 import SwiftData
 import SwiftUI
 
+extension ModelContext {
+    func getModel<T>(for id: PersistentIdentifier) throws -> T? where T: PersistentModel {
+        if let model: T = registeredModel(for: id) {
+            return model
+        }
+        
+        let predicate = #Predicate<T> { $0.persistentModelID == id }
+        
+        return try fetch(FetchDescriptor(predicate: predicate)).first
+    }
+}
+
 struct SendableView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var games: [GameModel]
+    @State private var newGameModel: GameModel?
 
     var body: some View {
         NavigationStack {
             List {
-                Section("Total: \(games.count)") {
-                    ForEach(games) { game in
-                        GameRowView(game: game)
+                if let newGameModel {
+                    GameRowView(game: newGameModel)
+                } else {
+                    Section("Total: \(games.count)") {
+                        ForEach(games) { game in
+                            GameRowView(game: game)
+                        }
                     }
                 }
             }
@@ -61,6 +78,23 @@ struct SendableView: View {
                         }
                     }
                     .tint(.red)
+                    
+                    Button("", systemImage: "arrow.down.circle") {
+                        let container = modelContext.container
+                        
+                        let result = Task.detached {
+                            let bgActor = GameModel.BackgroundActor(modelContainer: container)
+                            return await bgActor.returnNewGameModelId()
+                        }
+                        Task {
+                            let newGamePersistentId = await result.value
+                            do {
+                                newGameModel = try modelContext.getModel(for: newGamePersistentId)
+                            } catch {
+                                print("Game model doesn't exist: \(error.localizedDescription)")
+                            }
+                        }
+                    }
                 }
             }
         }

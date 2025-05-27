@@ -74,5 +74,12 @@ extension GameModel {
                 print(error.localizedDescription)
             }
         }
+        
+        func returnNewGameModelId() -> PersistentIdentifier {
+            let newGame = GameModel(name: "No Man's Sky", image: UIImage(resource: .noManSSky).pngData()!)
+            modelContext.insert(newGame)
+            save()
+            return newGame.id
+        }
     }
 }
