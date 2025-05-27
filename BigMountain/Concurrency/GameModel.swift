@@ -16,7 +16,7 @@ class GameModel {
 
     init(
         name: String,
-        image: Data = UIImage(resource: .earth).pngData()!
+        image: Data = UIImage(resource: .arches).pngData()!
     ) {
         self.name = name
         self.image = image
