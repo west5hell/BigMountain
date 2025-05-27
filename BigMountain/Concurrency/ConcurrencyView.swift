@@ -8,8 +8,41 @@
 import SwiftData
 import SwiftUI
 
+@ModelActor
+actor GameDataManager {
+    func insertGames(count: Int) {
+        let newGames = (1...count).map {
+            GameModel(name: "Game \($0)")
+        }
+        
+        for game in newGames {
+            modelContext.insert(game)
+        }
+        
+        try? modelContext.save()
+    }
+}
+
 struct ConcurrencyView: View {
-    @Query private var games: [GameModel]
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \GameModel.name) private var games: [GameModel]
+    
+    func insert(name: String) async {
+//        modelContext.insert(GameModel(name: name))
+        let backgroundContext = ModelContext(modelContext.container)
+        
+        await Task.detached {
+            let newGames = (1...600).map {
+                GameModel(name: "Game \($0)")
+            }
+            
+            for game in newGames {
+                backgroundContext.insert(game)
+            }
+            
+            try? backgroundContext.save()
+        }.value
+    }
 
     var body: some View {
         NavigationStack {
@@ -22,8 +55,31 @@ struct ConcurrencyView: View {
             }
             .headerProminence(.increased)
             .navigationTitle("Games")
+            .toolbar {
+                HStack {
+                    Button("", systemImage: "plus") {
+                        Task {
+//                            for i in 1...600 {
+//                                await insert(name: "Game \(i)")
+//                            }
+                            await insert(name: "")
+//                            let manager = GameDataManager(modelContainer: modelContext.container)
+//                            await manager.insertGames(count: 600)
+                        }
+                    }
+                    
+                    Button("", systemImage: "trash") {
+                        do {
+                            try modelContext.delete(model: GameModel.self)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
         }
     }
+    
 }
 
 #Preview {
