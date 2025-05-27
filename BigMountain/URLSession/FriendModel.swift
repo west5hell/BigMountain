@@ -70,8 +70,38 @@ extension FriendModel {
                 }
 
                 try modelContext.save()
+
+                await downloadImages()
             } catch {
                 throw error
+            }
+        }
+
+        func downloadImages() async {
+            let filter = #Predicate<FriendModel> { $0.image == nil }
+            guard
+                let friendsWithoutImages = try? modelContext.fetch(
+                    FetchDescriptor(predicate: filter)
+                )
+            else { return }
+
+            for friend in friendsWithoutImages {
+                guard let url = URL(string: friend.imageUrl) else { break }
+                do {
+                    let (data, _) = try await URLSession.shared.getData(
+                        for: url
+                    )
+                    friend.image = data
+                } catch {
+                    print(
+                        "Error getting image for: \(friend.imageUrl). Error: \(error.localizedDescription)"
+                    )
+                }
+            }
+            do {
+                try modelContext.save()
+            } catch {
+                print("Error saving images: \(error.localizedDescription)")
             }
         }
     }
