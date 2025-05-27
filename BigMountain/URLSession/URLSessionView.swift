@@ -10,7 +10,7 @@ import SwiftUI
 
 struct URLSessionView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var friends: [FriendModel]
+    @Query(sort: \FriendModel.firstName) private var friends: [FriendModel]
     @State private var showProgress = false
 
     var body: some View {
@@ -18,8 +18,15 @@ struct URLSessionView: View {
             List {
                 Section("Total: \(friends.count)") {
                     ForEach(friends) { friend in
-                        Text(friend.viewName, format: .name(style: .medium))
-                            .font(.title)
+                        HStack {
+                            Image(uiImage: friend.viewImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 60)
+                                .clipShape(.rect(cornerRadius: 8))
+                            Text(friend.viewName, format: .name(style: .medium))
+                                .font(.title)
+                        }
                     }
                 }
             }
@@ -53,7 +60,7 @@ struct URLSessionView: View {
                             return false
                         }
                     }
-                    
+
                     Task {
                         showProgress = await result.value
                     }
