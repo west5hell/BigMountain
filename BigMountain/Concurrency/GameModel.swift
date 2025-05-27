@@ -32,3 +32,47 @@ extension GameModel {
         }
     }
 }
+
+extension GameModel {
+    @ModelActor
+    actor BackgroundActor {
+        func insert(name: String) {
+            modelContext.insert(GameModel(name: name))
+            save()
+        }
+
+        func delete(ids: [PersistentIdentifier]) {
+            for id in ids {
+//                let descriptor = FetchDescriptor<GameModel>(
+//                    predicate: #Predicate<GameModel> {
+//                        $0.persistentModelID == id
+//                    }
+//                )
+//                
+//                do {
+//                    let games = try modelContext.fetch(descriptor)
+//                    if let game = games.first {
+//                        game.image = Data()
+//                        modelContext.delete(game)
+//                    }
+//                } catch {
+//                    print("Fetch error: \(error.localizedDescription)")
+//                }
+                
+                guard let game = self[id, as: GameModel.self] else {
+                    return
+                }
+                modelContext.delete(game)
+            }
+            save()
+        }
+
+        func save() {
+            do {
+                try modelContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
