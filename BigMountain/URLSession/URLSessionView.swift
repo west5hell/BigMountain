@@ -19,11 +19,24 @@ struct URLSessionView: View {
                 Section("Total: \(friends.count)") {
                     ForEach(friends) { friend in
                         HStack {
-                            Image(uiImage: friend.viewImage)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 60)
-                                .clipShape(.rect(cornerRadius: 8))
+                            AsyncImage(url: URL(string: friend.imageUrl)) {
+                                image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 60)
+                                    .clipShape(.rect(cornerRadius: 8))
+                            } placeholder: {
+                                Image(.earth)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 60)
+                                    .clipShape(.rect(cornerRadius: 8))
+                                    .overlay {
+                                        ProgressView()
+                                    }
+                            }
+
                             Text(friend.viewName, format: .name(style: .medium))
                                 .font(.title)
                         }
