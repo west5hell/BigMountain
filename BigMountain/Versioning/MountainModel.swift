@@ -20,3 +20,13 @@ class MountainModel {
         self.image = image
     }
 }
+
+extension MountainModel {
+    var viewImage: UIImage {
+        if let image, let image = UIImage(data: image) {
+            return image
+        } else {
+            return UIImage(resource: .earth)
+        }
+    }
+}
