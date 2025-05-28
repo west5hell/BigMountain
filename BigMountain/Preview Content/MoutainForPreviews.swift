@@ -16,59 +16,53 @@ extension MountainModel {
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
 
-        addVersion1Data(modelContext: container.mainContext)
+        addVersion3Data(modelContext: container.mainContext)
 
         return container
     }
 
-    static func addVersion1Data(modelContext: ModelContext) {
-        modelContext.insert(
-            MountainModel(
-                name: "Mount Rainier",
-                country: "United States",
-                elevation: 14_409,
-                image: UIImage(resource: .darkSouls3).pngData()!
-            )
+    static func addVersion3Data(modelContext: ModelContext) {
+        let ranier = MountainModel(
+            name: "Mount Rainier",
+            elevation: 14_409,
+            image: UIImage(resource: .darkSouls3).pngData()!
         )
-        modelContext.insert(
-            MountainModel(
-                name: "Denali",
-                country: "United States",
-                elevation: 20_308,
-                image: UIImage(resource: .witcher3).pngData()!
-            )
+        let denali = MountainModel(
+            name: "Denali",
+            elevation: 20_308,
+            image: UIImage(resource: .witcher3).pngData()!
         )
-        modelContext.insert(
-            MountainModel(
-                name: "Mount Fuji",
-                country: "Japan",
-                elevation: 12_388,
-                image: UIImage(resource: .noManSSky).pngData()!
-            )
+        let fuji = MountainModel(
+            name: "Mount Fuji",
+            elevation: 12_388,
+            image: UIImage(resource: .noManSSky).pngData()!
         )
-        modelContext.insert(
-            MountainModel(
-                name: "Mount Kita",
-                country: "Japan",
-                elevation: 10_476,
-                image: UIImage(resource: .lordsOfTheFallen).pngData()!
-            )
+        let kita = MountainModel(
+            name: "Mount Kita",
+            elevation: 10_476,
+            image: UIImage(resource: .skyrim).pngData()!
         )
-        modelContext.insert(
-            MountainModel(
-                name: "Mount Blanc",
-                country: "Switzerland",
-                elevation: 15_777,
-                image: UIImage(resource: .skyrim).pngData()!
-            )
+        let blanc = MountainModel(
+            name: "Mount Blanc",
+            elevation: 15_777,
+            image: UIImage(resource: .lordsOfTheFallen).pngData()!
         )
-        modelContext.insert(
-            MountainModel(
-                name: "Matterhorn",
-                country: "Switzerland",
-                elevation: 14_692,
-                image: UIImage(resource: .arches).pngData()!
-            )
+        let matterhorn = MountainModel(
+            name: "Matterhorn",
+            elevation: 14_692,
+            image: UIImage(resource: .arches).pngData()!
         )
+
+        // Countries
+        let usa = MountainCountryModel(name: "United States")
+        let japan = MountainCountryModel(name: "Japan")
+        let switzerland = MountainCountryModel(name: "Switzerland")
+
+        modelContext.insert(usa)
+        usa.mountains = [ranier, denali]
+        modelContext.insert(japan)
+        japan.mountains = [fuji, kita]
+        modelContext.insert(switzerland)
+        switzerland.mountains = [blanc, matterhorn]
     }
 }

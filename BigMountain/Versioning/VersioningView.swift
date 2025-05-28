@@ -10,7 +10,7 @@ import SwiftUI
 
 struct VersioningView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \MountainModel.country) private var mountains: [MountainModel]
+    @Query(sort: \MountainModel.name) private var mountains: [MountainModel]
 
     var body: some View {
         NavigationStack {
@@ -20,7 +20,7 @@ struct VersioningView: View {
             .navigationTitle("Versioning")
             .toolbar {
                 Button("", systemImage: "plus") {
-                    MountainModel.addVersion1Data(modelContext: modelContext)
+                    MountainModel.addVersion3Data(modelContext: modelContext)
                 }
             }
         }
@@ -56,7 +56,7 @@ struct MountainRowView: View {
                 )
                 .font(.footnote)
 
-                Text(mountain.country)
+                Text(mountain.country?.name ?? "(none)")
                     .foregroundStyle(.secondary)
             }
         }
