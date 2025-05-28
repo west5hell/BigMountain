@@ -47,6 +47,15 @@ struct MountainRowView: View {
                     .font(.title.weight(.semibold))
                     .fontWidth(.compressed)
 
+                Text(
+                    mountain.viewElevation,
+                    format: .measurement(
+                        width: .abbreviated,
+                        usage: .asProvided
+                    )
+                )
+                .font(.footnote)
+
                 Text(mountain.country)
                     .foregroundStyle(.secondary)
             }

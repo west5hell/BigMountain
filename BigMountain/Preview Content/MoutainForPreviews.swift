@@ -26,6 +26,7 @@ extension MountainModel {
             MountainModel(
                 name: "Mount Rainier",
                 country: "United States",
+                elevation: 14_409,
                 image: UIImage(resource: .darkSouls3).pngData()!
             )
         )
@@ -33,6 +34,7 @@ extension MountainModel {
             MountainModel(
                 name: "Denali",
                 country: "United States",
+                elevation: 20_308,
                 image: UIImage(resource: .witcher3).pngData()!
             )
         )
@@ -40,6 +42,7 @@ extension MountainModel {
             MountainModel(
                 name: "Mount Fuji",
                 country: "Japan",
+                elevation: 12_388,
                 image: UIImage(resource: .noManSSky).pngData()!
             )
         )
@@ -47,6 +50,7 @@ extension MountainModel {
             MountainModel(
                 name: "Mount Kita",
                 country: "Japan",
+                elevation: 10_476,
                 image: UIImage(resource: .lordsOfTheFallen).pngData()!
             )
         )
@@ -54,6 +58,7 @@ extension MountainModel {
             MountainModel(
                 name: "Mount Blanc",
                 country: "Switzerland",
+                elevation: 15_777,
                 image: UIImage(resource: .skyrim).pngData()!
             )
         )
@@ -61,6 +66,7 @@ extension MountainModel {
             MountainModel(
                 name: "Matterhorn",
                 country: "Switzerland",
+                elevation: 14_692,
                 image: UIImage(resource: .arches).pngData()!
             )
         )

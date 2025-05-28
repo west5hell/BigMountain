@@ -43,18 +43,6 @@ enum MountainModelSchemaV1: VersionedSchema {
     }
 }
 
-typealias MountainModel = MountainModelSchemaV1.MountainModel
-
-extension MountainModel {
-    var viewImage: UIImage {
-        if let image, let image = UIImage(data: image) {
-            return image
-        } else {
-            return UIImage(resource: .earth)
-        }
-    }
-}
-
 enum MountainModelSchemaV2: VersionedSchema {
     static var versionIdentifier = Schema.Version(2, 0, 0)
 
@@ -76,5 +64,21 @@ enum MountainModelSchemaV2: VersionedSchema {
             self.elevation = elevation
             self.image = image
         }
+    }
+}
+
+typealias MountainModel = MountainModelSchemaV2.MountainModel
+
+extension MountainModel {
+    var viewImage: UIImage {
+        if let image, let image = UIImage(data: image) {
+            return image
+        } else {
+            return UIImage(resource: .earth)
+        }
+    }
+    
+    var viewElevation: Measurement<UnitLength> {
+        Measurement(value: Double(elevation), unit: .feet)
     }
 }
