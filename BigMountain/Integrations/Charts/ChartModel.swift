@@ -10,6 +10,7 @@ import SwiftUI
 
 @Model
 class ChartModel {
+    var chartId: UUID
     var name: String
     var xAxisName: String
     var yAxisName: String
@@ -17,11 +18,13 @@ class ChartModel {
     var plots: [PlotModel] = []
 
     init(
+        chartId: UUID,
         name: String,
         xAxisName: String,
         yAxisName: String,
         plots: [PlotModel] = []
     ) {
+        self.chartId = chartId
         self.name = name
         self.xAxisName = xAxisName
         self.yAxisName = yAxisName

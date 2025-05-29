@@ -17,6 +17,7 @@ extension ChartModel {
         )
 
         let chart = ChartModel(
+            chartId: UUID(),
             name: "Coding Progress",
             xAxisName: "Date",
             yAxisName: "Lines of Code"
@@ -35,7 +36,7 @@ extension ChartModel {
             let date = calendar.date(byAdding: .day, value: i, to: startDate)!
             let label = dateFormatter.string(from: date)
             let value = Double.random(in: 100...1_000)
-            let plotModel = PlotModel(plotOrder: i, label: label, value: value)
+            let plotModel = PlotModel(chartId: chart.chartId, plotOrder: i, label: label, value: value)
             plots.append(plotModel)
         }
 
