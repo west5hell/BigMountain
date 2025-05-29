@@ -13,8 +13,8 @@ class CoffeeMakerModel {
     var make: String = "None"
     var image: Data = UIImage(resource: .arches).pngData()!
     
-    init(make: String, image: Data) {
-        self.make = make
+    init(name: String, image: Data) {
+        self.make = name
         self.image = image
     }
 }
