@@ -21,14 +21,29 @@ struct BigMountainApp: App {
     @MainActor
     var container: ModelContainer {
         do {
-            let container = try ModelContainer(
-                for: MountainModel.self,
-                migrationPlan: MountainModelMigrationPlan.self
+            let noCloudSyncSchema = Schema([ColorModel.self])
+            let noCloudSyncConfig = ModelConfiguration(
+                schema: noCloudSyncSchema,
+                cloudKitDatabase: .none
             )
+
+            let cloudSyncSchema = Schema([CoffeeMakerModel.self])
+            let cloudSyncConfig = ModelConfiguration(
+                schema: cloudSyncSchema,
+                cloudKitDatabase: .automatic
+            )
+
+            let container = try ModelContainer(
+                for: CoffeeMakerModel.self,
+                ColorModel.self,
+                configurations: noCloudSyncConfig,
+                cloudSyncConfig
+            )
+
             return container
         } catch {
             fatalError(
-                "Could not create ModelContainer with migration plan: \(error.localizedDescription)"
+                "Could not create ModelContainer: \(error.localizedDescription)"
             )
         }
     }
