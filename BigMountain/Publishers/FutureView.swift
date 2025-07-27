@@ -12,39 +12,53 @@ struct FutureView: View {
     @StateObject private var vm = FutureViewModel()
     @StateObject private var immediate = FutureImmediateExecutionViewModel()
     @StateObject private var once = FutureOnceViewModel()
+    @StateObject private var multipleTimes = FutureMultipleTimesViewModel()
 
     var body: some View {
-        VStack(spacing: 20) {
-            Button("Say Hello") {
-                vm.sayHello()
+        ScrollView {
+            VStack(spacing: 20) {
+                Button("Say Hello") {
+                    vm.sayHello()
+                }
+                
+                Text(vm.hello)
+                    .padding(.bottom)
+                
+                Button("Say Goodbye") {
+                    vm.sayGoodbye()
+                }
+                Text(vm.goodbye)
+                
+                Divider()
+                
+                Text(immediate.data)
+                
+                Divider()
+                Text(once.firstResult)
+                
+                Button("Run Again") {
+                    once.runAgain()
+                }
+                
+                Text(once.secondResult)
+                
+                Divider()
+                
+                Text(multipleTimes.firstResult)
+                
+                Button("Run Again") {
+                    multipleTimes.runAgain()
+                }
+                
+                Text(multipleTimes.secondResult)
             }
-
-            Text(vm.hello)
-                .padding(.bottom)
-
-            Button("Say Goodbye") {
-                vm.sayGoodbye()
+            .font(.title)
+            .padding()
+            .onAppear {
+                immediate.fetch()
+                once.fetch()
+                multipleTimes.fetch()
             }
-            Text(vm.goodbye)
-            
-            Divider()
-            
-            Text(immediate.data)
-            
-            Divider()
-            Text(once.firstResult)
-            
-            Button("Run Again") {
-                once.runAgain()
-            }
-            
-            Text(once.secondResult)
-
-        }
-        .font(.title)
-        .onAppear {
-            immediate.fetch()
-            once.fetch()
         }
     }
 }
@@ -99,6 +113,28 @@ class FutureOnceViewModel: ObservableObject {
     let futurePublisher = Future<String, Never> { promise in
         promise(.success("Future Publisher has run! 🙌"))
         print("Future Publisher has run! 🙌")
+    }
+    
+    func fetch() {
+        futurePublisher
+            .assign(to: &$firstResult)
+    }
+    
+    func runAgain() {
+        futurePublisher
+            .assign(to: &$secondResult)
+    }
+}
+
+class FutureMultipleTimesViewModel: ObservableObject {
+    @Published var firstResult = ""
+    @Published var secondResult = ""
+    
+    let futurePublisher = Deferred {
+        Future<String, Never> { promise in
+            promise(.success("Multiple Future Publisher has run! 🙌"))
+            print("Multiple Future Publisher has run! 🙌")
+        }
     }
     
     func fetch() {
