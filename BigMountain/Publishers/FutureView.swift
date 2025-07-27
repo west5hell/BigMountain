@@ -11,6 +11,7 @@ import SwiftUI
 struct FutureView: View {
     @StateObject private var vm = FutureViewModel()
     @StateObject private var immediate = FutureImmediateExecutionViewModel()
+    @StateObject private var once = FutureOnceViewModel()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -24,17 +25,26 @@ struct FutureView: View {
             Button("Say Goodbye") {
                 vm.sayGoodbye()
             }
-
             Text(vm.goodbye)
             
             Divider()
             
             Text(immediate.data)
+            
+            Divider()
+            Text(once.firstResult)
+            
+            Button("Run Again") {
+                once.runAgain()
+            }
+            
+            Text(once.secondResult)
 
         }
         .font(.title)
         .onAppear {
             immediate.fetch()
+            once.fetch()
         }
     }
 }
@@ -79,5 +89,25 @@ class FutureImmediateExecutionViewModel: ObservableObject {
         _ = Future<String, Never> { [unowned self] promise in
             data = "Hello, my friend 👋"
         }
+    }
+}
+
+class FutureOnceViewModel: ObservableObject {
+    @Published var firstResult = ""
+    @Published var secondResult = ""
+    
+    let futurePublisher = Future<String, Never> { promise in
+        promise(.success("Future Publisher has run! 🙌"))
+        print("Future Publisher has run! 🙌")
+    }
+    
+    func fetch() {
+        futurePublisher
+            .assign(to: &$firstResult)
+    }
+    
+    func runAgain() {
+        futurePublisher
+            .assign(to: &$secondResult)
     }
 }
