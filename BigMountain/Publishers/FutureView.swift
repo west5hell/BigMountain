@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FutureView: View {
     @StateObject private var vm = FutureViewModel()
+    @StateObject private var immediate = FutureImmediateExecutionViewModel()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -25,9 +26,16 @@ struct FutureView: View {
             }
 
             Text(vm.goodbye)
+            
+            Divider()
+            
+            Text(immediate.data)
 
         }
         .font(.title)
+        .onAppear {
+            immediate.fetch()
+        }
     }
 }
 
@@ -61,5 +69,15 @@ class FutureViewModel: ObservableObject {
             .sink(receiveValue: { [unowned self] message in
                 goodbye = message
             })
+    }
+}
+
+class FutureImmediateExecutionViewModel: ObservableObject {
+    @Published var data = ""
+    
+    func fetch() {
+        _ = Future<String, Never> { [unowned self] promise in
+            data = "Hello, my friend 👋"
+        }
     }
 }
