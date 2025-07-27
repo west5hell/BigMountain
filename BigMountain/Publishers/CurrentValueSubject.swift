@@ -14,14 +14,17 @@ struct CurrentValueSubjectView: View {
     var body: some View {
         VStack(spacing: 20) {
             Button("Select Lorenzo") {
-                vm.selection.send("Lorenzo")
+//                vm.selection.send("Lorenzo")
+                vm.selection = "Lorenzo"
             }
             
             Button("Select Ellen") {
-                vm.selection.value = "Ellen"
+//                vm.selection.value = "Ellen"
+                vm.selection = "Ellen"
             }
             
-            Text(vm.selection.value)
+//            Text(vm.selection.value)
+            Text(vm.selection)
                 .foregroundStyle(vm.selectionSame.value ? .red : .green)
         }
         .font(.title)
@@ -33,18 +36,21 @@ struct CurrentValueSubjectView: View {
 }
 
 class CurrentValueSubjectViewModel: ObservableObject {
-    var selection = CurrentValueSubject<String, Never>("No Name Selected")
+//    var selection = CurrentValueSubject<String, Never>("No Name Selected")
+    @Published var selection = "No Same Selected"
     var selectionSame = CurrentValueSubject<Bool, Never>(false)
     var cancellables: [AnyCancellable] = []
 
     init() {
-        selection
+//        selection
+        $selection
             .map { [unowned self] newValue -> Bool in
-                if newValue == selection.value {
-                    return true
-                } else {
-                    return false
-                }
+//                if newValue == selection.value {
+//                    return true
+//                } else {
+//                    return false
+//                }
+                newValue == selection
             }
             .sink { [unowned self] value in
                 selectionSame.value = value
